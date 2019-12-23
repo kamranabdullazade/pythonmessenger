@@ -35,6 +35,7 @@ if user1 == my_username and passw1 == passw or user2 == my_username and passw2 =
     cursor.execute("INSERT INTO messages VALUES (?,?,?,?)", (2, my_username, "Sign in", datetime.datetime.now()))
     con.commit()
 
+
     class Message_app():
         def __init__(self):
             cursor.execute("SELECT id FROM messages")
@@ -83,9 +84,11 @@ if user1 == my_username and passw1 == passw or user2 == my_username and passw2 =
             t1 = threading.Thread(target=self.run)
             t2 = threading.Thread(target=self.check)
             t1.start()
+            lock.acquire(True)
             t2.start()
 
+    a = Message_app()
+    a.go()
 
-a = Message_app()
-a.go()
-
+else:
+    print("Username or password incorrect")
